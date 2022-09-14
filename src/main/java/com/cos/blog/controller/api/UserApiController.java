@@ -20,8 +20,8 @@ public class UserApiController {
 	public ResponseDto<Integer> save(@RequestBody User user) {
 		System.out.println("UserApiController : save 호출됨.");
 		user.setRole(RoleType.USER);
-		int result =userService.회원가입(user);
-		return new ResponseDto<Integer>(HttpStatus.OK,result);
+		userService.회원가입(user);
+		return new ResponseDto<Integer>(HttpStatus.OK.value(),1);
 	}
 
 }

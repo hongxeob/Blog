@@ -1,5 +1,5 @@
 package com.cos.blog.model;
-//asdasdasd
+
 import java.sql.Timestamp;
 import java.util.List;
 
