@@ -1,9 +1,10 @@
 package com.cos.blog.service;
 
-import javax.transaction.Transactional;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.cos.blog.model.User;
 import com.cos.blog.repository.UserRepository;
@@ -18,5 +19,10 @@ public class UserService {
 	public void 회원가입(User user) {
 		userRepository.save(user);
 
+	}
+
+	@Transactional(readOnly = true) //select 할 때 Transaction이 실행 됨.서비스 종료시 트랜잭션 종료.(이때까지 정합성 유지 가능)
+	public User 로그인(User user) {
+		return userRepository.findByUsernameAndPassword(user.getUsername(),user.getPassword());
 	}
 }
