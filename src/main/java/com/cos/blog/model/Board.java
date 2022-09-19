@@ -39,7 +39,6 @@ public class Board {
 	@Lob//대용량 데이터 쓸 때 사용 
 	private String content; //섬머노트 라이브러리 사용 할것이다 <html>태그가 섞여서 디자인 되기 때문에 데이터가 커
 	
-	@ColumnDefault("0") //정수라서 작은 따옴표 안 붙혀도 됨  ㅎ
 	private int count; //조회수 
 	
 	@ManyToOne(fetch = FetchType.EAGER) // Many = Board , User = One ->한명의 유저는 많은 게시물을 쓸 수 있다.(앞에께 현재 오브젝트 뒤에께 새로 만든 아이)
