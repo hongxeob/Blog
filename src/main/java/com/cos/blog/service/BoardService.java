@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import com.cos.blog.model.Board;
 import com.cos.blog.model.RoleType;
@@ -47,4 +48,14 @@ public class BoardService {
 
 	}
 
+	@Transactional
+	public void 글수정하기(int id, Board requestBoard) {
+		Board board = boardRepository.findById(id).orElseThrow(() -> {
+			return new IllegalArgumentException("글 찾기 실패 : 아이디를 찾을 수 없습니다");
+		}); // 영속화 시킴
+		board.setTitle(requestBoard.getTitle());
+		board.setContent(requestBoard.getContent());
+		//해당 함수가 종료될 때 (Service가 종료시) 트랜잭션이 종료 됩니다. 이때 더티체킹->자동 업데이트 db flush
+
+	}
 }
