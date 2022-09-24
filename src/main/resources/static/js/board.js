@@ -36,10 +36,10 @@ let index = {
 
 	deleteById: function() {
 
-		let id = $("#id").text();
+		var id = $("#id").text();
 		$.ajax({
 			type: "DELETE",
-			url: "/api/board" + id,
+			url: "/api/board/" + id,
 			dataType: "json"
 		}).done(function(resp) {
 			alert("삭제가 완료 되었습니다.");
