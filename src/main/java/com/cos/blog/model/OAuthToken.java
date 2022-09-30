@@ -10,7 +10,7 @@ public class OAuthToken {
 	private int expires_in;
 	private String  scope;
 	private int refresh_token_expires_in; 
-//	private String id_token;
+	private String id_token;
 }
 
 

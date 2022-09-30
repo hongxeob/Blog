@@ -51,6 +51,8 @@ public class User {
 	@Enumerated(EnumType.STRING)
 	private RoleType role;
 	
+	private String oauth; //kakao , google ---등등등..
+	
 	@CreationTimestamp //시간 자동 입력.
 	private Timestamp createDate;
 }
