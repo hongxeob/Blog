@@ -33,11 +33,11 @@ public class Reply {
 	private String content;
 	
 	@ManyToOne//여러개의 답변은 하나의 답변에 존재 할 수있다.(앞에께 현재 오브젝트 뒤에께 새로 만든 아이)
-	@JoinColumn(name="boardid")
+	@JoinColumn(name="boardId")
 	private Board board;
 	
 	@ManyToOne//여러개의 답변을 하나의 유저가 쓸 수 있다.(앞에께 현재 오브젝트 뒤에께 새로 만든 아이)
-	@JoinColumn(name="userid")
+	@JoinColumn(name="userId")
 	private User user;
 	
 	@CreationTimestamp
