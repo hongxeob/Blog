@@ -13,9 +13,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.core.annotation.Order;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -49,6 +51,7 @@ public class Board {
 	//하나의 게시물은 많은 리플을 가질 수 있다.(앞에께 현재 오브젝트 뒤에께 새로 만든 아이)
 	@OneToMany(mappedBy = "board",fetch = FetchType.EAGER) // mappedBy 연관관계의 주인이 아님(난FK아님) 나의 주인(FK)은 리플 테이블의 보드 이다.
 	@JsonIgnoreProperties({"board"})
+	@OrderBy("id desc")
 	private List<Reply> replys;
 	
 	@CreationTimestamp //시간 자동 입력 됨.

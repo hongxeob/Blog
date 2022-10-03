@@ -11,9 +11,11 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.cos.blog.model.Board;
+import com.cos.blog.model.Reply;
 import com.cos.blog.model.RoleType;
 import com.cos.blog.model.User;
 import com.cos.blog.repository.BoardRepository;
+import com.cos.blog.repository.ReplyRepository;
 import com.cos.blog.repository.UserRepository;
 
 @Service // 스프링이 컴포넌트 스캔을 통해 Bean에 등록을 해줌 .IoC해준다.
@@ -21,6 +23,9 @@ public class BoardService {
 
 	@Autowired
 	private BoardRepository boardRepository;
+
+	@Autowired
+	private ReplyRepository replyRepository;
 
 	@Transactional // 이 밑의 코드들이 하나의 트랜잭션이 되어서 성공을 하면 하나의 커밋이 됨.
 	public void 글쓰기(Board board, User user) {
@@ -55,7 +60,21 @@ public class BoardService {
 		}); // 영속화 시킴
 		board.setTitle(requestBoard.getTitle());
 		board.setContent(requestBoard.getContent());
-		//해당 함수가 종료될 때 (Service가 종료시) 트랜잭션이 종료 됩니다. 이때 더티체킹->자동 업데이트 db flush
+		// 해당 함수가 종료될 때 (Service가 종료시) 트랜잭션이 종료 됩니다. 이때 더티체킹->자동 업데이트 db flush
 
 	}
+
+	@Transactional
+	public void 댓글쓰기(User user, int boardId, Reply requestReply) {
+
+		Board board = boardRepository.findById(boardId).orElseThrow(() -> {
+			return new IllegalArgumentException("댓글 쓰기 실패 : 게시글 id를 찾을 수 없습니다.");
+		}); // 영속화 완료
+
+		requestReply.setUser(user);
+		requestReply.setBoard(board);
+		replyRepository.save(requestReply);
+
+	}
+
 }
