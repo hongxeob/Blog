@@ -78,6 +78,7 @@ let index = {
 
 	replySave: function() {
 		let data = {
+			userId: $("#userId").val(),
 			boardId: $("#boardId").val(),
 			content: $("#reply-content").val()
 		};

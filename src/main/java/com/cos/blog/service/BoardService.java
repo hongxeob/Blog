@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import com.cos.blog.dto.ReplySaveRequestDto;
 import com.cos.blog.model.Board;
 import com.cos.blog.model.Reply;
 import com.cos.blog.model.RoleType;
@@ -26,6 +27,9 @@ public class BoardService {
 
 	@Autowired
 	private ReplyRepository replyRepository;
+	
+	@Autowired
+	private UserRepository userRepository;
 
 	@Transactional // 이 밑의 코드들이 하나의 트랜잭션이 되어서 성공을 하면 하나의 커밋이 됨.
 	public void 글쓰기(Board board, User user) {
@@ -64,17 +68,10 @@ public class BoardService {
 
 	}
 
+
 	@Transactional
-	public void 댓글쓰기(User user, int boardId, Reply requestReply) {
-
-		Board board = boardRepository.findById(boardId).orElseThrow(() -> {
-			return new IllegalArgumentException("댓글 쓰기 실패 : 게시글 id를 찾을 수 없습니다.");
-		}); // 영속화 완료
-
-		requestReply.setUser(user);
-		requestReply.setBoard(board);
-		replyRepository.save(requestReply);
-
+	public void 댓글쓰기(ReplySaveRequestDto replySaveRequestDto) {
+		replyRepository.mSave(replySaveRequestDto.getUserId(), replySaveRequestDto.getBoardId(), replySaveRequestDto.getContent());	
 	}
 
 }
