@@ -48,13 +48,18 @@ public class BoardApiController {
 
 	}
 
-	//데이터를 받을 때 컨트롤러 에서 dto를 만들어서 받는게 좋다.
-	//dto를 사용하지 않은 이유 
+	// 데이터를 받을 때 컨트롤러 에서 dto를 만들어서 받는게 좋다.
+	// dto를 사용하지 않은 이유
 	@PostMapping("/api/board/{boardId}/reply")
 	public ResponseDto<Integer> replySave(@RequestBody ReplySaveRequestDto replySaveRequestDto) {
 		boardService.댓글쓰기(replySaveRequestDto); // principal 시큐리티 세션 정보 받기
-		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1); 
+		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
 	}
-	
 
+	@DeleteMapping("/api/board/{boardId}/reply/{replyId}")
+	public ResponseDto<Integer> replyDelete(@PathVariable int replyId) {
+		boardService.댓글삭제(replyId); 
+		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
+
+	}
 }

@@ -100,6 +100,21 @@ let index = {
 
 	},
 
+	replyDelete: function(boardId, replyId) {
+
+		$.ajax({
+			type: "DELETE",
+			url: `/api/board/${boardId}/reply/${replyId}`, // 파라메터로 게시글 아이디 받기
+			dataType: "json"
+		}).done(function(resp) {
+			alert("댓글 삭제 성공.");
+			location.href = `/board/${boardId}`;
+		}).fail(function(error) {
+			alert(JSON.stringify(error));
+		});
+
+	},
+
 
 
 
