@@ -3,6 +3,7 @@ package com.cos.blog.model;
 import java.sql.Timestamp;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -49,7 +50,7 @@ public class Board {
 	private User user; //DB는 오브젝트를 저장할 수 없다. ->FK 사용. *자바는 오브젝트를 저장할 수 있다.
 	
 	//하나의 게시물은 많은 리플을 가질 수 있다.(앞에께 현재 오브젝트 뒤에께 새로 만든 아이)
-	@OneToMany(mappedBy = "board",fetch = FetchType.EAGER) // mappedBy 연관관계의 주인이 아님(난FK아님) 나의 주인(FK)은 리플 테이블의 보드 이다.
+	@OneToMany(mappedBy = "board",fetch = FetchType.EAGER, cascade = CascadeType.REMOVE) // mappedBy 연관관계의 주인이 아님(난FK아님) 나의 주인(FK)은 리플 테이블의 보드 이다.
 	@JsonIgnoreProperties({"board"})
 	@OrderBy("id desc")
 	private List<Reply> replys;
